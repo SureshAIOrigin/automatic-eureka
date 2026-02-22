@@ -7,6 +7,14 @@ This repository includes comprehensive system check scripts to validate the envi
 
 ### Available Scripts
 
+#### Using Make (Recommended)
+```bash
+make check        # Run system check (Python version)
+make check-python # Run system check (Python version)
+make check-bash   # Run system check (Bash version)
+make help         # Show available commands
+```
+
 #### Python Version
 ```bash
 python3 system_check.py
