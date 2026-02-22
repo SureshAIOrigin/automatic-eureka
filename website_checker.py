@@ -120,7 +120,7 @@ class WebsiteChecker:
                     
                     # Check expiration
                     not_after = datetime.strptime(cert['notAfter'], '%b %d %H:%M:%S %Y %Z')
-                    days_until_expiry = (not_after - datetime.now()).days
+                    days_until_expiry = (not_after - datetime.utcnow()).days
                     
                     if days_until_expiry < 0:
                         status = 'FAIL'
@@ -313,8 +313,9 @@ def main():
     checker = WebsiteChecker(url)
     results = checker.run_all_checks()
     
-    # Exit with appropriate code
-    if results['checks'].get('connectivity', {}).get('status') == 'FAIL':
+    # Exit with appropriate code based on any failures
+    failed_checks = sum(1 for check in results['checks'].values() if check.get('status') == 'FAIL')
+    if failed_checks > 0:
         sys.exit(1)
     
     sys.exit(0)
