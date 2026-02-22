@@ -45,5 +45,5 @@ python website_checker.py example.com
 
 ### Exit Codes
 
-- `0`: Website is reachable and checks passed
-- `1`: Website is not reachable or connectivity check failed
+- `0`: Website is reachable and all checks passed
+- `1`: One or more checks failed
