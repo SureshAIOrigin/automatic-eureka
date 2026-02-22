@@ -113,6 +113,8 @@ class WebsiteChecker:
             hostname = self.parsed_url.hostname
             port = self.parsed_url.port or 443
             context = ssl.create_default_context()
+            # Explicitly require TLS 1.2 or higher for security
+            context.minimum_version = ssl.TLSVersion.TLSv1_2
             
             with socket.create_connection((hostname, port), timeout=10) as sock:
                 with context.wrap_socket(sock, server_hostname=hostname) as ssock:
