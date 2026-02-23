@@ -193,6 +193,26 @@ All refactored utilities have test coverage:
 
 ---
 
+## Dependencies and Installation
+
+**Dependencies:**
+- Python 3.x
+- `requests` library (for HTTP/HTTPS checking)
+
+**Installation:**
+```bash
+pip3 install -r requirements.txt
+```
+
+All Python scripts are executable and can be run directly:
+```bash
+./system_check.py
+./database_check.py
+./website_checker.py <url>
+```
+
+---
+
 ## Security Enhancements
 
 1. **SSL Verification Warnings:** Automatically warns when SSL verification is disabled for HTTPS URLs

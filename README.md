@@ -39,6 +39,13 @@ This repository demonstrates best practices for identifying and eliminating code
 2. **HTTP Request Pattern** - Unified HTTP/HTTPS checking into `check_http_request()`
 3. **Results Summary Pattern** - Standardized result reporting with `print_summary_and_exit()`
 
+## Installation
+
+Install required dependencies:
+```bash
+pip3 install -r requirements.txt
+```
+
 ## Usage
 
 ### System Checker
