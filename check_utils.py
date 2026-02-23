@@ -53,7 +53,8 @@ def check_http_request(url, protocol="HTTP", verify=False):
         only be used for testing purposes or when checking HTTP (not HTTPS) URLs.
         For production HTTPS checks, always use verify=True to prevent MITM attacks.
     """
-    if not verify and protocol.upper() == "HTTPS":
+    # Check if SSL verification is disabled for an HTTPS URL
+    if not verify and url.lower().startswith('https://'):
         print(f"⚠ Warning: SSL certificate verification is disabled for {url}")
     
     print(f"Checking {protocol} connectivity for {url}...")
