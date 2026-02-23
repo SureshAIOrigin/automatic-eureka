@@ -119,9 +119,9 @@ check_system_info() {
 check_common_tools() {
     print_header "Development Tools"
     
-    local tools_list=("git" "python3" "node" "npm" "docker")
+    local tools_to_check=("git" "python3" "node" "npm" "docker")
     
-    for tool_name in "${tools_list[@]}"; do
+    for tool_name in "${tools_to_check[@]}"; do
         if command -v "$tool_name" &> /dev/null; then
             tool_version=$("$tool_name" --version 2>&1 | head -1)
             print_check "$tool_name" "pass" "$tool_version"

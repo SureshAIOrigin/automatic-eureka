@@ -72,7 +72,7 @@ All function names were already descriptive and followed Python naming conventio
 - `DISK_INFO` → `disk_info` - Consistent casing
 - `DISK_USAGE` → `disk_usage_percent` - Indicates it's a percentage
 - `DISK_FREE` → `disk_free_space` - More descriptive
-- `tools` → `tools_list` - Indicates it's an array/list
+- `tools` → `tools_to_check` - Indicates purpose rather than just data type
 - `tool` → `tool_name` - More specific
 - `VERSION` → `tool_version` - More descriptive
 
