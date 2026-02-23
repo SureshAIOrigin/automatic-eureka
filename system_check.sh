@@ -113,7 +113,7 @@ check_system_info() {
     echo "Hostname: $(hostname)"
     echo "Current Directory: $(pwd)"
     echo "User: $(whoami)"
-    echo "Timestamp: $(date -Iseconds)"
+    echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%S%z)"
 }
 
 check_common_tools() {
