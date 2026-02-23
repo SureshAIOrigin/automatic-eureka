@@ -47,7 +47,15 @@ def check_http_request(url, protocol="HTTP", verify=False):
         
     Returns:
         bool: True if request succeeded with 200, False otherwise
+        
+    Security Note:
+        When verify=False, SSL certificate validation is disabled. This should
+        only be used for testing purposes or when checking HTTP (not HTTPS) URLs.
+        For production HTTPS checks, always use verify=True to prevent MITM attacks.
     """
+    if not verify and protocol.upper() == "HTTPS":
+        print(f"⚠ Warning: SSL certificate verification is disabled for {url}")
+    
     print(f"Checking {protocol} connectivity for {url}...")
     try:
         response = requests.get(url, timeout=5, verify=verify)

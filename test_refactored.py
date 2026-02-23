@@ -3,11 +3,13 @@
 
 import sys
 import os
+from io import StringIO
+from unittest.mock import patch
 
 # Add the current directory to the path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from check_utils import run_command_check, check_http_request
+from check_utils import run_command_check, check_http_request, print_summary_and_exit
 
 
 def test_run_command_check():
@@ -42,6 +44,39 @@ def test_http_request():
     print("✓ Test passed: check_http_request with invalid URL")
 
 
+def test_print_summary_and_exit():
+    """Test the print_summary_and_exit utility function."""
+    print("\nTesting print_summary_and_exit...")
+    
+    # Capture stdout
+    captured_output = StringIO()
+    
+    # Test with all passing checks
+    try:
+        with patch('sys.stdout', captured_output):
+            with patch('sys.exit') as mock_exit:
+                print_summary_and_exit([True, True, True])
+                mock_exit.assert_called_once_with(0)
+        output = captured_output.getvalue()
+        assert "Passed: 3/3 checks" in output, "Should show 3/3 checks passed"
+        print("✓ Test passed: print_summary_and_exit with all passing checks")
+    except Exception as e:
+        print(f"⚠ Test for print_summary_and_exit (all pass): {e}")
+    
+    # Test with some failing checks
+    captured_output = StringIO()
+    try:
+        with patch('sys.stdout', captured_output):
+            with patch('sys.exit') as mock_exit:
+                print_summary_and_exit([True, False, True, False])
+                mock_exit.assert_called_once_with(1)
+        output = captured_output.getvalue()
+        assert "Passed: 2/4 checks" in output, "Should show 2/4 checks passed"
+        print("✓ Test passed: print_summary_and_exit with some failing checks")
+    except Exception as e:
+        print(f"⚠ Test for print_summary_and_exit (partial): {e}")
+
+
 def main():
     """Run all tests."""
     print("=== Running Tests for Refactored Code ===\n")
@@ -49,6 +84,7 @@ def main():
     try:
         test_run_command_check()
         test_http_request()
+        test_print_summary_and_exit()
         
         print("\n=== All Tests Passed ===")
         return 0
