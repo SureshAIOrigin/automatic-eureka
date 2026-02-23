@@ -1,67 +1,23 @@
 #!/usr/bin/env python3
 """System checker tool - validates system requirements and tools."""
 
-import sys
-import subprocess
 import os
-import shutil
+from check_utils import run_command_check, print_summary_and_exit
 
 
 def check_git_installed():
     """Check if git is installed."""
-    print("Checking if git is installed...")
-    try:
-        result = subprocess.run(['git', '--version'], 
-                              capture_output=True, 
-                              text=True, 
-                              timeout=5)
-        if result.returncode == 0:
-            print(f"✓ Git is installed: {result.stdout.strip()}")
-            return True
-        else:
-            print(f"✗ Git check failed")
-            return False
-    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
-        print(f"✗ Git is not installed: {e}")
-        return False
+    return run_command_check(['git', '--version'], 'Git')
 
 
 def check_python_installed():
     """Check if python is installed."""
-    print("Checking if python is installed...")
-    try:
-        result = subprocess.run(['python3', '--version'], 
-                              capture_output=True, 
-                              text=True, 
-                              timeout=5)
-        if result.returncode == 0:
-            print(f"✓ Python is installed: {result.stdout.strip()}")
-            return True
-        else:
-            print(f"✗ Python check failed")
-            return False
-    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
-        print(f"✗ Python is not installed: {e}")
-        return False
+    return run_command_check(['python3', '--version'], 'Python')
 
 
 def check_node_installed():
     """Check if node is installed."""
-    print("Checking if node is installed...")
-    try:
-        result = subprocess.run(['node', '--version'], 
-                              capture_output=True, 
-                              text=True, 
-                              timeout=5)
-        if result.returncode == 0:
-            print(f"✓ Node is installed: {result.stdout.strip()}")
-            return True
-        else:
-            print(f"✗ Node check failed")
-            return False
-    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
-        print(f"✗ Node is not installed: {e}")
-        return False
+    return run_command_check(['node', '--version'], 'Node')
 
 
 def check_disk_space():
@@ -107,12 +63,7 @@ def main():
     results.append(check_disk_space())
     results.append(check_write_permissions())
     
-    print(f"\n=== Summary ===")
-    passed = sum(results)
-    total = len(results)
-    print(f"Passed: {passed}/{total} checks")
-    
-    sys.exit(0 if passed == total else 1)
+    print_summary_and_exit(results)
 
 
 if __name__ == "__main__":

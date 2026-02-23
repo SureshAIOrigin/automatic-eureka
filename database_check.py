@@ -1,66 +1,23 @@
 #!/usr/bin/env python3
 """Database checker tool - validates database connectivity."""
 
-import sys
-import subprocess
 import os
+from check_utils import run_command_check, print_summary_and_exit
 
 
 def check_mysql_installed():
     """Check if MySQL is installed."""
-    print("Checking if MySQL is installed...")
-    try:
-        result = subprocess.run(['mysql', '--version'], 
-                              capture_output=True, 
-                              text=True, 
-                              timeout=5)
-        if result.returncode == 0:
-            print(f"✓ MySQL is installed: {result.stdout.strip()}")
-            return True
-        else:
-            print(f"✗ MySQL check failed")
-            return False
-    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
-        print(f"✗ MySQL is not installed: {e}")
-        return False
+    return run_command_check(['mysql', '--version'], 'MySQL')
 
 
 def check_postgres_installed():
     """Check if PostgreSQL is installed."""
-    print("Checking if PostgreSQL is installed...")
-    try:
-        result = subprocess.run(['psql', '--version'], 
-                              capture_output=True, 
-                              text=True, 
-                              timeout=5)
-        if result.returncode == 0:
-            print(f"✓ PostgreSQL is installed: {result.stdout.strip()}")
-            return True
-        else:
-            print(f"✗ PostgreSQL check failed")
-            return False
-    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
-        print(f"✗ PostgreSQL is not installed: {e}")
-        return False
+    return run_command_check(['psql', '--version'], 'PostgreSQL')
 
 
 def check_mongodb_installed():
     """Check if MongoDB is installed."""
-    print("Checking if MongoDB is installed...")
-    try:
-        result = subprocess.run(['mongod', '--version'], 
-                              capture_output=True, 
-                              text=True, 
-                              timeout=5)
-        if result.returncode == 0:
-            print(f"✓ MongoDB is installed: {result.stdout.strip()}")
-            return True
-        else:
-            print(f"✗ MongoDB check failed")
-            return False
-    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
-        print(f"✗ MongoDB is not installed: {e}")
-        return False
+    return run_command_check(['mongod', '--version'], 'MongoDB')
 
 
 def check_db_config_exists():
@@ -92,12 +49,7 @@ def main():
     results.append(check_mongodb_installed())
     results.append(check_db_config_exists())
     
-    print(f"\n=== Summary ===")
-    passed = sum(results)
-    total = len(results)
-    print(f"Passed: {passed}/{total} checks")
-    
-    sys.exit(0 if passed == total else 1)
+    print_summary_and_exit(results)
 
 
 if __name__ == "__main__":

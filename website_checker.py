@@ -2,41 +2,19 @@
 """Website checker tool - validates website connectivity and security."""
 
 import sys
-import requests
 import socket
 from urllib.parse import urlparse
+from check_utils import check_http_request, print_summary_and_exit
 
 
 def check_http_connectivity(url):
     """Check if website is accessible via HTTP."""
-    print(f"Checking HTTP connectivity for {url}...")
-    try:
-        response = requests.get(url, timeout=5)
-        if response.status_code == 200:
-            print(f"✓ {url} is accessible (Status: {response.status_code})")
-            return True
-        else:
-            print(f"✗ {url} returned status code: {response.status_code}")
-            return False
-    except requests.exceptions.RequestException as e:
-        print(f"✗ Error connecting to {url}: {e}")
-        return False
+    return check_http_request(url, protocol="HTTP", verify=False)
 
 
 def check_https_connectivity(url):
     """Check if website is accessible via HTTPS."""
-    print(f"Checking HTTPS connectivity for {url}...")
-    try:
-        response = requests.get(url, timeout=5, verify=True)
-        if response.status_code == 200:
-            print(f"✓ {url} is accessible via HTTPS (Status: {response.status_code})")
-            return True
-        else:
-            print(f"✗ {url} returned status code: {response.status_code}")
-            return False
-    except requests.exceptions.RequestException as e:
-        print(f"✗ Error connecting to {url} via HTTPS: {e}")
-        return False
+    return check_http_request(url, protocol="HTTPS", verify=True)
 
 
 def check_dns_resolution(hostname):
@@ -89,12 +67,7 @@ def main():
     results.append(check_port_open(hostname, 80))
     results.append(check_port_open(hostname, 443))
     
-    print(f"\n=== Summary ===")
-    passed = sum(results)
-    total = len(results)
-    print(f"Passed: {passed}/{total} checks")
-    
-    sys.exit(0 if passed == total else 1)
+    print_summary_and_exit(results)
 
 
 if __name__ == "__main__":
