@@ -12,13 +12,34 @@ This repository provides:
 
 ## Files
 
-- `PERFORMANCE_GUIDE.md` - Comprehensive guide to code optimization patterns
-- `examples_inefficient.py` - Examples of slow, inefficient code patterns
-- `examples_efficient.py` - Optimized versions of the same operations
+### Documentation
+- `README.md` - This file - project overview and quick start
+- `PERFORMANCE_GUIDE.md` - Comprehensive guide with detailed explanations (8 patterns)
+- `OPTIMIZATION_CHECKLIST.md` - Practical checklist for code performance reviews
+- `QUICK_REFERENCE.md` - Quick lookup guide for common optimizations
+- `SUMMARY.md` - Measured performance improvements summary
+
+### Code Examples
+- `examples_inefficient.py` - Examples of slow, inefficient code patterns (10 examples)
+- `examples_efficient.py` - Optimized versions of the same operations (15 examples)
+- `log_analyzer_slow.py` - Real-world inefficient log analyzer
+- `log_analyzer_optimized.py` - Optimized version (2.68x faster)
+
+### Tools and Scripts
 - `benchmark.py` - Performance comparison benchmarks
 - `analyze_performance.py` - Static analysis tool for detecting performance issues
+- `profiling_demo.py` - Demonstrates Python profiling tools (cProfile, timeit)
+- `compare_log_analyzers.py` - Real-world optimization comparison
+- `advanced_patterns.py` - Advanced optimization techniques
+- `web_performance.py` - Web/API specific performance optimizations
+- `usage_guide.py` - Interactive usage guide and examples
 
 ## Quick Start
+
+### See All Available Tools
+```bash
+python3 usage_guide.py
+```
 
 ### Run Performance Benchmarks
 ```bash
@@ -26,6 +47,13 @@ python3 benchmark.py
 ```
 
 This will compare inefficient vs efficient implementations and show speedup ratios.
+
+### See Real-World Optimization Example
+```bash
+python3 compare_log_analyzers.py
+```
+
+Demonstrates 2.68x speedup on a realistic log analyzer application.
 
 ### Analyze Your Code
 ```bash
@@ -37,6 +65,16 @@ This will scan your Python code for common performance anti-patterns.
 ### Analyze Example Code
 ```bash
 python3 analyze_performance.py examples_inefficient.py
+```
+
+### Learn Profiling Techniques
+```bash
+python3 profiling_demo.py
+```
+
+### Test Advanced Patterns
+```bash
+python3 advanced_patterns.py
 ```
 
 ## Key Performance Improvements
