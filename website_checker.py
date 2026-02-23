@@ -20,7 +20,7 @@ class WebsiteChecker:
         self.parsed_url = urlparse(url)
         self.results = {
             'url': url,
-            'timestamp': datetime.now().isoformat(),
+            'timestamp': datetime.now(timezone.utc).isoformat(),
             'checks': {}
         }
     
