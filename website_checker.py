@@ -11,7 +11,7 @@ import socket
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 from urllib.parse import urlparse
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class WebsiteChecker:
@@ -122,7 +122,8 @@ class WebsiteChecker:
                     
                     # Check expiration
                     expiration_date = datetime.strptime(certificate['notAfter'], '%b %d %H:%M:%S %Y %Z')
-                    days_until_expiry = (expiration_date - datetime.utcnow()).days
+                    current_time = datetime.now(timezone.utc).replace(tzinfo=None)
+                    days_until_expiry = (expiration_date - current_time).days
                     
                     if days_until_expiry < 0:
                         status = 'FAIL'
