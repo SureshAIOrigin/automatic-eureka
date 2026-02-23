@@ -120,9 +120,9 @@ class WebsiteChecker:
                 with ssl_context.wrap_socket(socket_connection, server_hostname=hostname) as ssl_socket:
                     certificate = ssl_socket.getpeercert()
                     
-                    # Check expiration
+                    # Check expiration (both datetimes are naive/timezone-unaware for simple comparison)
                     expiration_date = datetime.strptime(certificate['notAfter'], '%b %d %H:%M:%S %Y %Z')
-                    current_time = datetime.now(timezone.utc).replace(tzinfo=None)
+                    current_time = datetime.utcnow()
                     days_until_expiry = (expiration_date - current_time).days
                     
                     if days_until_expiry < 0:

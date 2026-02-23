@@ -113,6 +113,7 @@ check_system_info() {
     echo "Hostname: $(hostname)"
     echo "Current Directory: $(pwd)"
     echo "User: $(whoami)"
+    # ISO 8601 UTC timestamp format (Z indicates UTC timezone)
     echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 }
 
