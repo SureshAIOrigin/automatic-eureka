@@ -11,7 +11,7 @@ import socket
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 from urllib.parse import urlparse
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 
 
 class WebsiteChecker:
@@ -20,7 +20,7 @@ class WebsiteChecker:
         self.parsed_url = urlparse(url)
         self.results = {
             'url': url,
-            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'timestamp': datetime.now(UTC).isoformat(),
             'checks': {}
         }
     
@@ -122,7 +122,7 @@ class WebsiteChecker:
                     
                     # Check expiration (both datetimes are naive/timezone-unaware for simple comparison)
                     expiration_date = datetime.strptime(certificate['notAfter'], '%b %d %H:%M:%S %Y %Z')
-                    current_time = datetime.now(timezone.utc).replace(tzinfo=None)
+                    current_time = datetime.now(UTC).replace(tzinfo=None)
                     days_until_expiry = (expiration_date - current_time).days
                     
                     if days_until_expiry < 0:

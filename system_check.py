@@ -8,7 +8,7 @@ import os
 import sys
 import subprocess
 import platform
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 
 
 def print_header(text):
@@ -188,7 +188,7 @@ def check_system_info():
     print(f"Hostname: {platform.node()}")
     print(f"Current Directory: {os.getcwd()}")
     print(f"User: {os.environ.get('USER', 'unknown')}")
-    print(f"Timestamp: {datetime.now(timezone.utc).isoformat()}")
+    print(f"Timestamp: {datetime.now(UTC).isoformat()}")
     
     return True
 
